@@ -1,0 +1,4 @@
+name_en,name_ar,category,price,min_order,stock,image,sku,is_trending
+"Custom Logo T-Shirt","تيشيرت بشعار مخصص",clothing,2.80,500,50000,"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",CLO-TSH-001,true
+"Premium Leather Handbag","حقيبة جلدية فاخرة",accessories,8.50,500,20000,"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600",ACC-BAG-002,true
+"Bluetooth 5.3 Earbuds","سماعة بلوتوث 5.3",electronics,12.50,500,15000,"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600",ELE-EAR-005,true

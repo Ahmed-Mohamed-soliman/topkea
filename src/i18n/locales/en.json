@@ -1,0 +1,131 @@
+{
+  "nav": {
+    "trending": "Trending",
+    "fashion": "Fashion",
+    "buildYourOwn": "Build Your Own",
+    "cart": "Cart",
+    "login": "Login",
+    "logout": "Logout",
+    "admin": "Dashboard",
+    "profile": "Profile"
+  },
+  "categories": {
+    "clothing": "Clothing",
+    "accessories": "Accessories",
+    "shoes": "Shoes",
+    "makeup": "Makeup & Cosmetics",
+    "electronics": "Electronics",
+    "batteries": "Batteries",
+    "toys": "Toys",
+    "machinery": "Machinery",
+    "sweets": "Sweets",
+    "mobile_spare_parts": "Mobile Spare Parts",
+    "robots": "Robots",
+    "phone_accessories": "Phone Accessories",
+    "home_appliances": "Home Appliances",
+    "drones": "Drones"
+  },
+  "home": {
+    "hero_title": "The #1 Wholesale Marketplace",
+    "hero_subtitle": "Wholesale prices for professional buyers — Minimum order 500 units",
+    "hero_cta": "Shop Now",
+    "hero_cta_secondary": "Learn More",
+    "trending_title": "Trending Products",
+    "categories_title": "Shop by Category",
+    "trust_prepaid": "Prepaid Orders Only",
+    "trust_quality": "Quality Checked Before Shipping",
+    "trust_wholesale": "Exclusive Wholesale Pricing",
+    "vip_banner": "🌟 You're a VIP Client — 10% discount on all orders"
+  },
+  "product": {
+    "min_order": "Minimum Order",
+    "units": "units",
+    "price_tiers": "Volume Pricing",
+    "add_to_cart": "Add to Cart",
+    "related": "Related Products",
+    "category": "Category",
+    "sku": "SKU",
+    "in_stock": "In Stock",
+    "out_of_stock": "Out of Stock"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "empty_cta": "Start Shopping",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "vip_discount": "VIP Discount",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "min_order_warning": "Minimum order is {min} units"
+  },
+  "checkout": {
+    "title": "Complete Your Order",
+    "pay_with_paypal": "Pay with PayPal",
+    "prepaid_notice": "All orders are prepaid",
+    "order_summary": "Order Summary",
+    "success_title": "Order Confirmed!",
+    "success_message": "You'll be redirected to WhatsApp to finalize details",
+    "whatsapp_cta": "Contact via WhatsApp"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "google": "Continue with Google",
+    "no_account": "Don't have an account?",
+    "have_account": "Already have an account?",
+    "forgot_password": "Forgot password?"
+  },
+  "build": {
+    "title": "Build Your Own Product",
+    "subtitle": "Customize your order with the quantity and specs you need",
+    "category_step": "Choose Category",
+    "options_step": "Customize Product",
+    "quantity_step": "Set Quantity",
+    "color": "Color",
+    "size": "Size",
+    "features": "Features",
+    "submit": "Submit Custom Order",
+    "success": "Order submitted! We'll contact you shortly."
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "orders": "Orders",
+    "users": "Users",
+    "analytics": "Analytics",
+    "accounting": "Accounting",
+    "settings": "Settings",
+    "add_product": "Add Product",
+    "bulk_upload": "Bulk Upload (CSV)",
+    "export_csv": "Export CSV",
+    "total_revenue": "Total Revenue",
+    "total_orders": "Total Orders",
+    "total_users": "Total Users",
+    "top_products": "Top Selling Products"
+  },
+  "help": {
+    "title": "Help Center",
+    "subtitle": "How to use the platform",
+    "faq_title": "Frequently Asked Questions",
+    "chat_placeholder": "Type your question here...",
+    "chat_send": "Send"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "price": "Price",
+    "name": "Name",
+    "all": "All"
+  }
+}

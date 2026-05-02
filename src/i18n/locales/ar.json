@@ -1,0 +1,131 @@
+{
+  "nav": {
+    "trending": "الأكثر رواجاً",
+    "fashion": "الموضة",
+    "buildYourOwn": "ابنِ منتجك",
+    "cart": "السلة",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "admin": "لوحة التحكم",
+    "profile": "الملف الشخصي"
+  },
+  "categories": {
+    "clothing": "الملابس",
+    "accessories": "الإكسسوارات",
+    "shoes": "الأحذية",
+    "makeup": "المكياج ومستحضرات التجميل",
+    "electronics": "الإلكترونيات",
+    "batteries": "البطاريات",
+    "toys": "الألعاب",
+    "machinery": "الآلات والمعدات",
+    "sweets": "الحلويات",
+    "mobile_spare_parts": "قطع غيار الجوال",
+    "robots": "الروبوتات",
+    "phone_accessories": "اكسسوارات الهاتف",
+    "home_appliances": "الأجهزة المنزلية",
+    "drones": "الطائرات المسيّرة"
+  },
+  "home": {
+    "hero_title": "سوق الجملة الأول",
+    "hero_subtitle": "أسعار الجملة للمشترين المحترفين — الحد الأدنى للطلب 500 وحدة",
+    "hero_cta": "تسوّق الآن",
+    "hero_cta_secondary": "تعرّف على المزيد",
+    "trending_title": "المنتجات الأكثر رواجاً",
+    "categories_title": "تسوّق حسب الفئة",
+    "trust_prepaid": "الدفع المسبق فقط",
+    "trust_quality": "فحص الجودة قبل الشحن",
+    "trust_wholesale": "أسعار جملة حصرية",
+    "vip_banner": "🌟 أنت عميل VIP — خصم 10% على جميع الطلبات"
+  },
+  "product": {
+    "min_order": "الحد الأدنى للطلب",
+    "units": "وحدة",
+    "price_tiers": "أسعار الكميات",
+    "add_to_cart": "أضف إلى السلة",
+    "related": "منتجات ذات صلة",
+    "category": "الفئة",
+    "sku": "رمز المنتج",
+    "in_stock": "متوفر",
+    "out_of_stock": "غير متوفر"
+  },
+  "cart": {
+    "title": "سلة المشتريات",
+    "empty": "سلتك فارغة",
+    "empty_cta": "ابدأ التسوق",
+    "total": "الإجمالي",
+    "subtotal": "المجموع الفرعي",
+    "vip_discount": "خصم VIP",
+    "checkout": "إتمام الشراء",
+    "remove": "حذف",
+    "quantity": "الكمية",
+    "min_order_warning": "الحد الأدنى للطلب هو {min} وحدة"
+  },
+  "checkout": {
+    "title": "إتمام الطلب",
+    "pay_with_paypal": "الدفع عبر PayPal",
+    "prepaid_notice": "جميع الطلبات تُدفع مسبقاً",
+    "order_summary": "ملخص الطلب",
+    "success_title": "تم تأكيد طلبك!",
+    "success_message": "سيتم توجيهك إلى WhatsApp لاستكمال التفاصيل",
+    "whatsapp_cta": "التواصل عبر WhatsApp"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "google": "المتابعة مع Google",
+    "no_account": "ليس لديك حساب؟",
+    "have_account": "لديك حساب بالفعل؟",
+    "forgot_password": "نسيت كلمة المرور؟"
+  },
+  "build": {
+    "title": "ابنِ منتجك الخاص",
+    "subtitle": "خصّص طلبك بالكمية والمواصفات التي تحتاجها",
+    "category_step": "اختر الفئة",
+    "options_step": "خصّص المنتج",
+    "quantity_step": "حدد الكمية",
+    "color": "اللون",
+    "size": "الحجم",
+    "features": "المميزات",
+    "submit": "أرسل الطلب المخصص",
+    "success": "تم إرسال طلبك! سنتواصل معك قريباً."
+  },
+  "admin": {
+    "dashboard": "لوحة التحكم",
+    "products": "المنتجات",
+    "orders": "الطلبات",
+    "users": "المستخدمون",
+    "analytics": "الإحصائيات",
+    "accounting": "المحاسبة",
+    "settings": "الإعدادات",
+    "add_product": "إضافة منتج",
+    "bulk_upload": "رفع جماعي (CSV)",
+    "export_csv": "تصدير CSV",
+    "total_revenue": "إجمالي الإيرادات",
+    "total_orders": "إجمالي الطلبات",
+    "total_users": "إجمالي المستخدمين",
+    "top_products": "أعلى المنتجات مبيعاً"
+  },
+  "help": {
+    "title": "مركز المساعدة",
+    "subtitle": "كيفية استخدام المنصة",
+    "faq_title": "الأسئلة الشائعة",
+    "chat_placeholder": "اكتب سؤالك هنا...",
+    "chat_send": "إرسال"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "search": "بحث",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "price": "السعر",
+    "name": "الاسم",
+    "all": "الكل"
+  }
+}
