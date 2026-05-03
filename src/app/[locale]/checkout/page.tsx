@@ -19,6 +19,16 @@ type CustomerInfo = {
   country: string;
 };
 
+type CartItem = {
+  product: {
+    id: string;
+    name_ar: string;
+    name_en: string;
+    price: number;
+  };
+  quantity: number;
+};
+
 export default function CheckoutPage() {
   const locale = useLocale() as 'ar' | 'en';
   const router = useRouter();
@@ -27,12 +37,12 @@ export default function CheckoutPage() {
   const [orderComplete, setOrderComplete] = useState(false);
   const [orderId, setOrderId] = useState('');
   const [loading, setLoading] = useState(false);
+  const [savedItems, setSavedItems] = useState<CartItem[]>([]);
+  const [savedTotal, setSavedTotal] = useState(0);
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
     name: '', email: '', phone: '', address: '', city: '', country: '',
   });
   const total = getTotal();
-  const [savedItems, setSavedItems] = useState<typeof items>(items);
-  const [savedTotal, setSavedTotal] = useState<number>(total);
 
   const handleSubmit = async () => {
     const { name, email, phone, address, city, country } = customerInfo;
@@ -43,19 +53,20 @@ export default function CheckoutPage() {
 
     setLoading(true);
     try {
-      const [savedItems, setSavedItems] = useState(items);
-      const [savedTotal, setSavedTotal] = useState(total);
+      // حفظ الـ items والـ total قبل clearCart
+      const currentItems = [...items];
+      const currentTotal = total;
+
       const supabase = createClient();
       const { data: { session } } = await supabase.auth.getSession();
-
       const orderRef = `ORD-${Date.now()}`;
 
       const { data: order } = await supabase
         .from('orders')
         .insert({
           user_id: session?.user?.id || null,
-          items,
-          total,
+          items: currentItems,
+          total: currentTotal,
           status: 'pending',
           payment_id: orderRef,
           shipping_info: customerInfo,
@@ -71,15 +82,15 @@ export default function CheckoutPage() {
       } else {
         setOrderId(orderRef);
       }
-      setSavedItems([...items]);
-      setSavedTotal(total);
-      clearCart();
-      setOrderComplete(true);
 
+      setSavedItems(currentItems);
+      setSavedTotal(currentTotal);
       clearCart();
       setOrderComplete(true);
     } catch (err) {
       console.error(err);
+      setSavedItems([...items]);
+      setSavedTotal(total);
       setOrderId(`ORD-${Date.now()}`);
       clearCart();
       setOrderComplete(true);
@@ -90,8 +101,8 @@ export default function CheckoutPage() {
 
   const buildWhatsAppMessage = (id: string) => {
     const itemsList = savedItems
-      .map(({ product, quantity }) =>
-        `• ${locale === 'ar' ? product.name_ar : product.name_en} × ${quantity}`
+      .map((item: CartItem) =>
+        `• ${locale === 'ar' ? item.product.name_ar : item.product.name_en} × ${item.quantity}`
       )
       .join('\n');
 
@@ -117,7 +128,7 @@ export default function CheckoutPage() {
         `💰 *Total: $${savedTotal.toFixed(2)}*\n\n` +
         `Please confirm the order and send payment details 🙏`;
 
-    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '972592701146';
+    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '';
     return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
   };
 
@@ -149,16 +160,17 @@ export default function CheckoutPage() {
               href={waLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={async () => {
+                if (orderId && orderId.length > 10) {
+                  const supabase = createClient();
+                  await supabase.from('orders').update({ status: 'processing' }).eq('id', orderId);
+                }
+              }}
               className="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold px-10 py-4 rounded-sm transition-colors text-lg"
             >
               <MessageCircle size={24} />
               {isRTL ? 'أكمل الطلب على واتساب' : 'Complete Order on WhatsApp'}
             </a>
-            <p className="text-xs text-brand-gray-500 mt-4">
-              {isRTL
-                ? 'سيتم إرسال تفاصيل طلبك كاملة على واتساب'
-                : 'Your complete order details will be sent to WhatsApp'}
-            </p>
           </div>
         </main>
         <Footer />
@@ -170,7 +182,6 @@ export default function CheckoutPage() {
     <div className="min-h-screen bg-brand-black">
       <Header />
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-28">
-
         <div className="flex items-center gap-4 mb-10">
           <div className="w-1 h-8 bg-brand-red" />
           <h1 className="text-3xl font-bold text-white font-display tracking-wider uppercase">
@@ -179,14 +190,11 @@ export default function CheckoutPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-
-          {/* Shipping Form */}
           <div className="bg-brand-gray-800 border border-brand-gray-700 rounded-sm p-6">
             <h3 className="font-bold text-white mb-6 flex items-center gap-2">
               <MapPin size={16} className="text-brand-red" />
               {isRTL ? 'بيانات الشحن والتواصل' : 'Shipping & Contact Info'}
             </h3>
-
             <div className="space-y-4">
               {[
                 { key: 'name', label: isRTL ? 'الاسم الكامل' : 'Full Name', type: 'text', icon: User },
@@ -210,7 +218,6 @@ export default function CheckoutPage() {
                   </div>
                 </div>
               ))}
-
               <div>
                 <label className="text-xs text-brand-gray-400 mb-1.5 block">
                   {isRTL ? 'عنوان الشحن التفصيلي' : 'Detailed Address'} <span className="text-brand-red">*</span>
@@ -226,7 +233,6 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {/* Order Summary + WhatsApp */}
           <div className="space-y-4">
             <div className="bg-brand-gray-800 border border-brand-gray-700 rounded-sm p-6">
               <h3 className="font-bold text-white mb-4">
@@ -256,28 +262,6 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* How it works */}
-            <div className="bg-brand-gray-800 border border-brand-gray-700 rounded-sm p-5">
-              <h4 className="font-semibold text-white mb-3 text-sm">
-                {isRTL ? '📋 كيف يعمل؟' : '📋 How it works?'}
-              </h4>
-              <div className="space-y-2">
-                {(isRTL ? [
-                  '1️⃣ اكمل بياناتك واضغط "إرسال الطلب"',
-                  '2️⃣ سيتم توجيهك لواتساب مع تفاصيل طلبك كاملة',
-                  '3️⃣ سنتواصل معك لتأكيد الطلب وإرسال بيانات الدفع',
-                  '4️⃣ بعد الدفع يتم تجهيز الشحن فوراً',
-                ] : [
-                  '1️⃣ Fill your info and click "Send Order"',
-                  '2️⃣ You\'ll be redirected to WhatsApp with full order details',
-                  '3️⃣ We\'ll confirm your order and send payment details',
-                  '4️⃣ After payment, shipping is prepared immediately',
-                ]).map((step) => (
-                  <p key={step} className="text-xs text-brand-gray-400">{step}</p>
-                ))}
-              </div>
-            </div>
-
             <div className="flex items-center gap-2 p-3 bg-brand-gray-700/50 rounded-sm text-xs text-brand-gray-400">
               <Shield size={12} className="text-green-500 shrink-0" />
               {isRTL ? 'بياناتك محمية وآمنة 100%' : 'Your data is 100% safe & secure'}
@@ -298,7 +282,6 @@ export default function CheckoutPage() {
               )}
             </button>
           </div>
-
         </div>
       </main>
       <Footer />
