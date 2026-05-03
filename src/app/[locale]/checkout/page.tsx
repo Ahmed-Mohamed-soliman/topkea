@@ -31,6 +31,8 @@ export default function CheckoutPage() {
     name: '', email: '', phone: '', address: '', city: '', country: '',
   });
   const total = getTotal();
+  const [savedItems, setSavedItems] = useState<typeof items>(items);
+  const [savedTotal, setSavedTotal] = useState<number>(total);
 
   const handleSubmit = async () => {
     const { name, email, phone, address, city, country } = customerInfo;
@@ -41,6 +43,8 @@ export default function CheckoutPage() {
 
     setLoading(true);
     try {
+      const [savedItems, setSavedItems] = useState(items);
+      const [savedTotal, setSavedTotal] = useState(total);
       const supabase = createClient();
       const { data: { session } } = await supabase.auth.getSession();
 
@@ -67,6 +71,10 @@ export default function CheckoutPage() {
       } else {
         setOrderId(orderRef);
       }
+      setSavedItems([...items]);
+      setSavedTotal(total);
+      clearCart();
+      setOrderComplete(true);
 
       clearCart();
       setOrderComplete(true);
@@ -81,14 +89,14 @@ export default function CheckoutPage() {
   };
 
   const buildWhatsAppMessage = (id: string) => {
-    const itemsList = items
+    const itemsList = savedItems
       .map(({ product, quantity }) =>
         `• ${locale === 'ar' ? product.name_ar : product.name_en} × ${quantity}`
       )
       .join('\n');
 
     const message = isRTL
-      ? `🛒 *طلب جديد من WholesalePro*\n\n` +
+      ? `🛒 *طلب جديد من Topkea*\n\n` +
         `📋 *رقم الطلب:* ${id.slice(0, 8).toUpperCase()}\n\n` +
         `👤 *بيانات العميل:*\n` +
         `الاسم: ${customerInfo.name}\n` +
@@ -96,9 +104,9 @@ export default function CheckoutPage() {
         `الهاتف: ${customerInfo.phone}\n\n` +
         `📦 *المنتجات:*\n${itemsList}\n\n` +
         `📍 *عنوان الشحن:*\n${customerInfo.address}, ${customerInfo.city}, ${customerInfo.country}\n\n` +
-        `💰 *الإجمالي: $${total.toFixed(2)}*\n\n` +
+        `💰 *الإجمالي: $${savedTotal.toFixed(2)}*\n\n` +
         `أرجو تأكيد الطلب وإرسال تفاصيل الدفع 🙏`
-      : `🛒 *New Order from WholesalePro*\n\n` +
+      : `🛒 *New Order from Topkea*\n\n` +
         `📋 *Order ID:* ${id.slice(0, 8).toUpperCase()}\n\n` +
         `👤 *Customer Info:*\n` +
         `Name: ${customerInfo.name}\n` +
@@ -106,7 +114,7 @@ export default function CheckoutPage() {
         `Phone: ${customerInfo.phone}\n\n` +
         `📦 *Products:*\n${itemsList}\n\n` +
         `📍 *Shipping Address:*\n${customerInfo.address}, ${customerInfo.city}, ${customerInfo.country}\n\n` +
-        `💰 *Total: $${total.toFixed(2)}*\n\n` +
+        `💰 *Total: $${savedTotal.toFixed(2)}*\n\n` +
         `Please confirm the order and send payment details 🙏`;
 
     const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '972592701146';
