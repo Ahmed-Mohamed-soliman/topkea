@@ -12,6 +12,7 @@ import { getProductName, getProductDescription, formatCurrency } from '@/lib/uti
 import { ShoppingCart, Plus, Minus, Package, Tag, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { SEED_PRODUCTS } from '@/lib/seed-data';
+import { CategoryKey } from '@/types';
 
 export default function ProductPage({ params }: { params: Promise<{ id: string; locale: string }> }) {
   const t = useTranslations();
@@ -31,7 +32,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string; 
         const { data } = await supabase.from('products').select('*').eq('id', id).single();
         if (data) {
           setProduct(data);
-          setQuantity(MIN_ORDER_BY_CATEGORY[data.category]);
+          setQuantity(MIN_ORDER_BY_CATEGORY[data.category as CategoryKey] || data.min_order || 500);
           const { data: rel } = await supabase
             .from('products')
             .select('*')
