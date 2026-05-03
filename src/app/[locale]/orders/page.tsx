@@ -11,6 +11,9 @@ type Order = {
   total: number;
   status: string;
   created_at: string;
+  type?: string;
+  category?: string;
+  quantity?: number;
 };
 
 const COLORS: Record<string, string> = {
