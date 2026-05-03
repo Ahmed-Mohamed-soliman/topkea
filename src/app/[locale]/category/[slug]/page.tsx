@@ -22,24 +22,32 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
   useEffect(() => {
     (async () => {
       const { slug } = await params;
-      const cat = slug as CategoryKey;
-      setCategory(cat);
 
-      try {
+      if (slug === 'all') {
+        setCategory('clothing'); // أو أي default category عندك
+
         const supabase = createClient();
-        const query = cat === 'all'
-          ? supabase.from('products').select('*').eq('is_active', true).limit(48)
-          : supabase.from('products').select('*').eq('category', cat).eq('is_active', true);
-        const { data } = await query;
+        const { data } = await supabase
+          .from('products')
+          .select('*')
+          .eq('is_active', true)
+          .limit(48);
+
         setProducts(data || []);
         setFiltered(data || []);
-      } catch {
-        const demo = (cat === 'all' ? SEED_PRODUCTS : SEED_PRODUCTS.filter((p) => p.category === cat))
-          .map((p, i) => ({ ...p, id: `demo-${i}`, created_at: '' })) as Product[];
-        setProducts(demo);
-        setFiltered(demo);
-      } finally {
-        setLoading(false);
+      } else {
+        const cat = slug as CategoryKey;
+        setCategory(cat);
+
+        const supabase = createClient();
+        const { data } = await supabase
+          .from('products')
+          .select('*')
+          .eq('category', cat)
+          .eq('is_active', true);
+
+        setProducts(data || []);
+        setFiltered(data || []);
       }
     })();
   }, [params]);
