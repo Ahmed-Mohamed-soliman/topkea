@@ -70,24 +70,6 @@ export default function CheckoutPage() {
 
       clearCart();
       setOrderComplete(true);
-    <a 
-      href={waLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={async () => {
-        if (orderId && orderId.length > 10) {
-          const supabase = createClient();
-          await supabase
-            .from('orders')
-            .update({ status: 'processing' })
-            .eq('id', orderId);
-        }
-      }}
-      className="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold px-10 py-4 rounded-sm transition-colors text-lg"
-    >
-      <MessageCircle size={24} />
-      {isRTL ? 'أكمل الطلب على واتساب' : 'Complete Order on WhatsApp'}
-    </a>
     } catch (err) {
       console.error(err);
       setOrderId(`ORD-${Date.now()}`);

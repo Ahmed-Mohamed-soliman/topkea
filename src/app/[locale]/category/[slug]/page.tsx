@@ -22,10 +22,8 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
   useEffect(() => {
     (async () => {
       const { slug } = await params;
-
       if (slug === 'all') {
         setCategory('clothing'); // أو أي default category عندك
-
         const supabase = createClient();
         const { data } = await supabase
           .from('products')
